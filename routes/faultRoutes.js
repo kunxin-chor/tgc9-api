@@ -6,7 +6,7 @@ const ObjectId = MongoUtil.ObjectId;
 router.get('/', async (req,res)=>{
     let db = MongoUtil.getDB();
     let faults = await db.collection('faults').find().toArray();
-    return faults;
+    res.send(faults);
 })
 
 module.exports = router;
