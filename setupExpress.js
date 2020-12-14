@@ -4,6 +4,7 @@ const hbs = require('hbs')
 const cookieParser = require('cookie-parser')
 const flash = require('connect-flash')
 const passport = require('./passport/setup');
+const cors = require('cors');
 
 function setupExpressApp(app) {
     // use handlebars as the view engine (for templates) -- because there many other choices
@@ -33,6 +34,8 @@ function setupExpressApp(app) {
 
     app.use(passport.initialize());
     app.use(passport.session())
+
+    app.use(cors());
  
 
 }
