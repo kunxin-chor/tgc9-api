@@ -10,8 +10,10 @@ function setupExpressApp(app) {
     app.set('view engine', 'hbs')
     // we want our static files (images, css etc.) to be in a folder named public
     app.use(express.static('public'))
-    // allows express to data submitted via forms
+    // allows express to process data submitted via forms
     app.use(express.urlencoded({ extended: false }))
+    // allows express to process data submitted via JSON 
+    app.use(express.json());
 
 
     app.use(cookieParser("secret"))

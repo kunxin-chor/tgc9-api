@@ -9,4 +9,37 @@ router.get('/', async (req,res)=>{
     res.send(faults);
 })
 
+router.post('/', async(req,res)=>{
+    let db = MongoUtil.getDB();
+    
+    // extract out all the fields
+    let {
+        title, location, tags, block, reporter_name, reporter_email, date
+    } = req.body;
+
+    // JavaScript black magic
+    // let newFault = {...req.body};
+
+    // tags could be an array, or a single item, or undefined (because the user didn't check any checkbox)
+    
+    // for undefined: if tags is undefined, it will be an empty array
+    tags = tags || [];
+
+    // if tags is not an array, convert to array
+    tags = Array.isArray(tags) ? tags : [tags]; 
+
+    date = new Date(date);
+
+    let results = await db.collection('faults').insertOne({
+        title, location, tags, block, reporter_name, reporter_email, date
+    })
+
+    // if I use res.send and it sends back an array or an object,
+    // express will auto convert it to be JSON
+    res.send({
+        'message':'New fault report has been created successfully!',
+        'inserterdid': results.insertedId
+    })
+})
+
 module.exports = router;
