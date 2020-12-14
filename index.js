@@ -17,6 +17,8 @@ async function main() {
     const MONGO_URL=process.env.MONGO_URL;
     await MongoUtil.connect(MONGO_URL, "tgc9_cico");
 
+    const faultRoutes = require('./routes/faultRoutes');
+    app.use('/faults', faultRoutes);
 
 }
 
